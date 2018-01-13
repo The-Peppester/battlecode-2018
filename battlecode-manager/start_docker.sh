@@ -9,8 +9,12 @@ docker load -i /images/battlebaby.tar
 export RUST_BACKTRACE=1
 echo "=== random garbage complete! ==="
 
-if [ -z "$SCRIMMAGE" ]; then
-    python3 gui.py
+if [ -z "$MATCHMAKER" ]; then
+    if [ -z "$SCRIMMAGE" ]; then
+        python3 gui.py
+    else
+        python3 scrimmage.py
+    fi
 else
-    python3 scrimmage.py
+    python3 matchmaker.py
 fi
