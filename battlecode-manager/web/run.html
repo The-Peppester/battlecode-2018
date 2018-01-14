@@ -509,8 +509,7 @@
 			document.getElementById('battlecodeheader').style.display = "none";
 			previous_texts = [];
 			
-			async function drawFunc(x) {
-				var durationTime = performance.now();
+			async function drawFunc() {
 				var logs = await eel.get_player_logs()();
 				if (logs[0] === null) { // if it hasn't started yet
 					drawMapInterval = requestAnimationFrame(drawFunc);
@@ -532,10 +531,7 @@
 				var maps = await eel.get_viewer_data(index)();
 				draw_grid(earth,	maps['width'],	maps['height'],	maps['earth'],	true);
 				draw_grid(mars,		maps['width'],	maps['height'],	maps['mars'],	false);
-				durationTime = performance.now() - durationTime;
-				drawMapInterval = setTimeout(() => {
-					drawMapInterval = requestAnimationFrame(drawFunc);
-				}, Math.cbrt(x*durationTime)); // This timing equation gives super fast computers super FPS, and super slow computers minimal lag
+				drawMapInterval = requestAnimationFrame(drawFunc);
 			};
 			drawMapInterval = requestAnimationFrame(drawFunc);
 		}
